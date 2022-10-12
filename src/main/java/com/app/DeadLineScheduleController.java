@@ -37,18 +37,18 @@ public class DeadLineScheduleController {
 	 * 
 	 * @param deadlineMs the milliseconds
 	 * @return An identifier for the scheduled deadline.
+	 * @throws MyException 
 	 */
 
 	@PutMapping("/schedule")
 	@ResponseStatus(HttpStatus.OK)
-	public long newTimeLineschedule(@RequestParam(value = "deadlineMs", required = true) long deadlineMs) {
+	public long newTimeLineschedule(@RequestParam(value = "deadlineMs", required = true) long deadlineMs) throws MyException {
 		try {
 			return deadLineEngineImpl.schedule(deadlineMs);
 		} catch (Exception e) {
 			throw new MyException("ERROR METHOD schedule CLASS DeadLineScheduleController ", e.getCause());
-		} finally {
-			return 0;
-		}
+	
+		} 
 	}
 
 	/**
@@ -56,19 +56,18 @@ public class DeadLineScheduleController {
 	 * 
 	 * @param requestId identifier to cancel.
 	 * @return true if canceled.
+	 * @throws MyException 
 	 */
 
 	@DeleteMapping("/cancel")
 	@ResponseStatus(HttpStatus.OK)
-	public boolean cancel(@RequestParam(value = "requestId", required = true) long identifier) {
+	public boolean cancel(@RequestParam(value = "requestId", required = true) long identifier) throws MyException {
 
 		try {
 			return deadLineEngineImpl.cancel(identifier);
 
 		} catch (Exception e) {
 			throw new MyException("ERROR METHOD cancel CLASS DeadLineScheduleController ", e.getCause());
-		} finally {
-			return false;
 		}
 	}
 
@@ -76,18 +75,18 @@ public class DeadLineScheduleController {
 	 * Use for count All Register deadline including the active and inactive
 	 * 
 	 * @return the number of registered deadlines.
+	 * @throws MyException 
 	 */
 	@GetMapping("/countRegisterDeadLines")
-	public int countDeadLines() {
+	public int countDeadLines() throws MyException {
 		try {
+			
 			return deadLineEngineImpl.size();
 
 		} catch (Exception e) {
 			throw new MyException("ERROR METHOD countRegisterDeadLines CLASS DeadLineScheduleController ",
 					e.getCause());
-		} finally {
-			return 0;
-		}
+		} 
 
 	}
 
@@ -97,10 +96,11 @@ public class DeadLineScheduleController {
 	 * @param handler to call with identifier of expired deadlines.
 	 * @param maxPoll count of maximum number of expired deadlines to process.
 	 * @return number of expired deadlines that fired successfully.
+	 * @throws MyException 
 	 */
 
 	@PostMapping("/pollRequest")
-	public int pollRequest(@RequestBody RequestServiceParam requestServiceParam) {
+	public int pollRequest(@RequestBody RequestServiceParam requestServiceParam) throws MyException {
 
 		try {
 			Consumer<Long> conciseLambda = t -> System.out.println("Identifier:" + t);
@@ -114,8 +114,6 @@ public class DeadLineScheduleController {
 
 		} catch (Exception e) {
 			throw new MyException("ERROR METHOD pollRequest CLASS DeadLineScheduleController ", e.getCause());
-		} finally {
-			return 0;
 		}
 
 	}
