@@ -33,7 +33,7 @@ public class DeadLineEngineImplTest {
 	private long identifier;
 	// private int intValue;
 	// private int maxPoll;
-	private Consumer<Long> handler;
+	//private Consumer<Long> handler;
 
 	@BeforeEach
 	void setUp() {
