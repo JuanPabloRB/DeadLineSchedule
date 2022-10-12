@@ -10,9 +10,9 @@ import java.util.List;
 
 public class RequestServiceParam {
 
-	long nowMs;
-	int intMaxPoll;
-	List<Long> listHandler;
+	private long nowMs;
+	private int intMaxPoll;
+	private List<Long> listHandler;
 
 	public long getNowMs() {
 		return nowMs;
