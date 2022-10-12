@@ -11,6 +11,15 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import com.app.model.Schedule;
 
+/**
+ * ProjectJPATest 
+ * Assumptions: 
+ * Not all the tests will be created, only some since it is a test
+ * 
+ * @author Juan Pablo Rodriguez Bianchi
+ * @version 1.0
+ */
+
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 class ProjectJPATest {
@@ -20,6 +29,7 @@ class ProjectJPATest {
 
 	@Test
 	public void save() {
+		
 		Schedule sc = new Schedule(1200, true);
 		sc = repo.save(sc);
 		assertNotNull(sc);
@@ -32,16 +42,12 @@ class ProjectJPATest {
 	public void delete() {
 		
 		Schedule sc = new Schedule(1200, true);
-		sc = repo.save(sc);
-		
+		sc = repo.save(sc);		
 		assertNotNull(sc);
 		assertNotNull(sc.getIdentifier());
 		assertEquals(1200, sc.getDeadlineMs());
-
 		repo.deleteById((long) 1);
-
 		boolean exist = repo.existsById((long) 1);
-
 		assertEquals(false, exist);
 
 	}

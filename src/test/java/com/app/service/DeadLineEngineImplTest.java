@@ -1,76 +1,68 @@
 package com.app.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.mockito.Mockito.when;
 
+import java.util.function.Consumer;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import com.app.model.Schedule;
 import com.app.repository.IScheduleRepository;
 
-@DataJpaTest
-@AutoConfigureTestDatabase(replace = Replace.AUTO_CONFIGURED)
-class DeadLineEngineImplTest {
+/**
+ * DeadLineEngineImplTest 
+ * Assumptions: 
+ * Not all the tests will be created, only some since it is a test
+ * 
+ * @author Juan Pablo Rodriguez Bianchi
+ * @version 1.0
+ */
 
-	@Autowired
-	IScheduleRepository repo;
-	
-	@Test
-	void scheduleTest() {
-		DeadLineEngineImpl deadLineEngineImpl = new DeadLineEngineImpl();
-		long deadlineMs = 1000;
+public class DeadLineEngineImplTest {
 
-		deadLineEngineImpl.schedule(deadlineMs);
-		
-		//assertNotNull(identifier);
-		//assertNotNull(identifier);
-		//assertEquals(1, identifier);
+	@Mock
+	private IScheduleRepository repo;
+
+	@InjectMocks
+	private DeadLineEngineImpl deadLineEngineImpl;
+
+	private long deadlineMs;
+	private long identifier;
+	// private int intValue;
+	// private int maxPoll;
+	private Consumer<Long> handler;
+
+	@BeforeEach
+	void setUp() {
+
+		MockitoAnnotations.openMocks(this);
 
 	}
 
-	
 	@Test
-	void cancelTest() {
-		
-		DeadLineEngineImpl deadLineEngineImpl = new DeadLineEngineImpl();
-		long identifier = 1;
-		
-		Schedule sc = new Schedule(1200, true);
-		sc = repo.save(sc);
-		assertNotNull(sc);
-		assertNotNull(sc.getIdentifier());
-		assertEquals(1200, sc.getDeadlineMs());
+	public void testSchedule() {
+		when(deadLineEngineImpl.schedule(deadlineMs)).thenReturn(identifier);
 
-		deadLineEngineImpl.cancel(identifier);
-		
-		boolean exist = repo.existsById((long) 1);
-
-		assertEquals(false, exist);
 	}
-	
-	
+
 	@Test
-	void pollTest() {
-		
-		DeadLineEngineImpl deadLineEngineImpl = new DeadLineEngineImpl();
-		long identifier = 1;
-		
-		Schedule sc = new Schedule(1200, true);
-		sc = repo.save(sc);
-		
-		
-		assertNotNull(sc);
-		assertNotNull(sc.getIdentifier());
-		assertEquals(1200, sc.getDeadlineMs());
-
-		deadLineEngineImpl.cancel(identifier);
-		
-		boolean exist = repo.existsById((long) 1);
-
-		assertEquals(false, exist);
+	public void testCancel() {
+		when(deadLineEngineImpl.cancel(identifier)).thenReturn(true);
 	}
+
+	/*
+	 * @Test public void testSize() {
+	 * 
+	 * intValue = 0; when(deadLineEngineImpl.size()).thenReturn(intValue);
+	 * 
+	 * }
+	 * 
+	 * @Test public void testPoll() { intValue = 0;
+	 * when(deadLineEngineImpl.poll(deadlineMs, handler,
+	 * maxPoll)).thenReturn(intValue); }
+	 */
+
 }

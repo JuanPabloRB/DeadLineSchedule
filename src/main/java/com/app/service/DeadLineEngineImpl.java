@@ -50,7 +50,6 @@ public class DeadLineEngineImpl implements IDeadLineEngine {
 	}
 
 	public int size() {
-
 		return (int) repo.count();
 	}
 

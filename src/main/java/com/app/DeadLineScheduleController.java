@@ -87,11 +87,14 @@ public class DeadLineScheduleController {
 			throw new MyException("ERROR METHOD countRegisterDeadLines CLASS DeadLineScheduleController ",
 					e.getCause());
 		} 
-
 	}
 
 	/**
 	 * Use for count the deadline active expired to date, when finish the count update this to inactive 
+	 * Assumptions:
+	 * Once the query is made, they will be changed to state = false
+	 * They will not be removed from the consulted times
+	
 	 * @param nowMs   time in milliseconds since epoch to check deadlines against.
 	 * @param handler to call with identifier of expired deadlines.
 	 * @param maxPoll count of maximum number of expired deadlines to process.
