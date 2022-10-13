@@ -2,8 +2,6 @@ package com.app.service;
 
 import static org.mockito.Mockito.when;
 
-import java.util.function.Consumer;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
