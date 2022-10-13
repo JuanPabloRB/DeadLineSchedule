@@ -19,7 +19,7 @@ import com.app.model.Schedule;
 @Repository
 public interface IScheduleRepository extends JpaRepository<Schedule, Long> {
 
-	List<Schedule> findByDeadlineMsLessThanEqualAndActive(long nowMs, boolean active, Pageable pageable);
+	List<Schedule> findByDeadlineMsLessThanAndActive(long nowMs, boolean active, Pageable pageable);
 
 	@Modifying
 	@Query("UPDATE Schedule s SET s.active = false WHERE s.identifier = ?1")

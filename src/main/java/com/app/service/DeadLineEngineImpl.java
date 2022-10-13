@@ -58,7 +58,7 @@ public class DeadLineEngineImpl implements IDeadLineEngine {
 		Pageable limit = PageRequest.of(0, maxPoll);
 		int countExpired = 0;
 
-		List<Schedule> listSchedule = repo.findByDeadlineMsLessThanEqualAndActive(nowMs, true, limit);
+		List<Schedule> listSchedule = repo.findByDeadlineMsLessThanAndActive(nowMs, true, limit);
 
 		countExpired = listSchedule.size();
 
