@@ -2,7 +2,10 @@ package com.app.service;
 
 import static org.mockito.Mockito.when;
 
+import java.util.function.Consumer;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -11,9 +14,8 @@ import org.mockito.MockitoAnnotations;
 import com.app.repository.IScheduleRepository;
 
 /**
- * DeadLineEngineImplTest 
- * Assumptions: 
- * Not all the tests will be created, only some since it is a test
+ * DeadLineEngineImplTest Assumptions: Not all the tests will be created, only
+ * some since it is a test
  * 
  * @author Juan Pablo Rodriguez Bianchi
  * @version 1.0
@@ -29,9 +31,9 @@ public class DeadLineEngineImplTest {
 
 	private long deadlineMs;
 	private long identifier;
-	// private int intValue;
-	// private int maxPoll;
-	//private Consumer<Long> handler;
+	private int intValue;
+	private int maxPoll;
+    private Consumer<Long> handler;
 
 	@BeforeEach
 	void setUp() {
@@ -50,17 +52,20 @@ public class DeadLineEngineImplTest {
 	public void testCancel() {
 		when(deadLineEngineImpl.cancel(identifier)).thenReturn(true);
 	}
+	
+	@Disabled
+	@Test
+	public void testSize() {
 
-	/*
-	 * @Test public void testSize() {
-	 * 
-	 * intValue = 0; when(deadLineEngineImpl.size()).thenReturn(intValue);
-	 * 
-	 * }
-	 * 
-	 * @Test public void testPoll() { intValue = 0;
-	 * when(deadLineEngineImpl.poll(deadlineMs, handler,
-	 * maxPoll)).thenReturn(intValue); }
-	 */
+		intValue = 0;
+		when(deadLineEngineImpl.size()).thenReturn(intValue);
+
+	}
+	@Disabled
+	@Test
+	public void testPoll() {
+		intValue = 0;
+		when(deadLineEngineImpl.poll(deadlineMs, handler, maxPoll)).thenReturn(intValue);
+	}
 
 }
